@@ -1,0 +1,467 @@
+---
+name: Interface Ethernet
+path: Cisco-IOS-XE-native:native/interface/%s=%v
+augment_path: Cisco-IOS-XE-native:native/interface/GigabitEthernet=%v
+test_tags: [C8000V]
+no_delete: true
+doc_category: Interface
+attributes:
+  - yang_name: type
+    tf_name: type
+    description: Interface type
+    type: String
+    reference: true
+    enum_values:
+      - GigabitEthernet
+      - TwoGigabitEthernet
+      - FiveGigabitEthernet
+      - TenGigabitEthernet
+      - TwentyFiveGigE
+      - FortyGigabitEthernet
+      - HundredGigE
+      - TwoHundredGigE
+      - FourHundredGigE
+    example: GigabitEthernet
+  - yang_name: name
+    example: 3
+  - yang_name: media-type
+    exclude_test: true
+    example: sfp
+  - yang_name: bandwidth/kilobits
+    tf_name: bandwidth
+    example: 1000000
+  - yang_name: switchport-conf/switchport
+    tf_name: switchport
+    exclude_test: true
+    example: false
+  - yang_name: description
+    example: My Interface Description
+  - yang_name: shutdown
+    example: false
+  - yang_name: ip/proxy-arp
+    example: false
+  - yang_name: ip/redirects
+    example: false
+  - yang_name: ip/Cisco-IOS-XE-icmp:unreachables
+    example: false
+  - yang_name: vrf-choice/vrf/vrf/forwarding
+    xpath: vrf/forwarding
+    tf_name: vrf_forwarding
+    exclude_test: true
+    example: VRF1
+  - yang_name: ip/address-choice/address/address/address-choice/fixed-case/primary/address
+    xpath: ip/address/primary/address
+    tf_name: ipv4_address
+    delete_parent: true
+    example: 15.1.1.1
+  - yang_name: ip/address-choice/address/address/address-choice/fixed-case/primary/mask
+    xpath: ip/address/primary/mask
+    tf_name: ipv4_address_mask
+    delete_parent: true
+    example: 255.255.255.252
+  - yang_name: ip/address-choice/unnumbered/unnumbered
+    xpath: ip/unnumbered
+    tf_name: unnumbered
+    exclude_test: true
+    example: Loopback1
+  - yang_name: encapsulation/encap-choice/dot1Q/dot1Q/vlan-id
+    xpath: encapsulation/dot1Q/vlan-id
+    tf_name: encapsulation_dot1q_vlan_id
+    exclude_test: true
+    example: 666
+  - yang_name: Cisco-IOS-XE-ethernet:channel-group/number
+    exclude_test: true
+    example: 10
+  - yang_name: Cisco-IOS-XE-ethernet:channel-group/mode
+    exclude_test: true
+    example: active
+  - yang_name: ip/dhcp/Cisco-IOS-XE-dhcp:relay/source-interface
+    tf_name: ip_dhcp_relay_source_interface
+    example: Loopback100
+  - yang_name: ip/access-group/in/apply-type/apply-intf/acl/acl-name
+    xpath: ip/access-group/in/acl/acl-name
+    tf_name: ip_access_group_in
+    delete_parent: true
+    example: 1
+  - yang_name: ip/access-group/in/apply-type/apply-intf/acl/in
+    xpath: ip/access-group/in/acl/in
+    tf_name: ip_access_group_in_enable
+    example: true
+  - yang_name: ip/access-group/out/apply-type/apply-intf/acl/acl-name
+    xpath: ip/access-group/out/acl/acl-name
+    tf_name: ip_access_group_out
+    delete_parent: true
+    example: 1
+  - yang_name: ip/access-group/out/apply-type/apply-intf/acl/out
+    xpath: ip/access-group/out/acl/out
+    tf_name: ip_access_group_out_enable
+    example: true
+  - yang_name: Cisco-IOS-XE-spanning-tree:spanning-tree/guard
+    example: loop
+    exclude_test: true
+  - yang_name: Cisco-IOS-XE-switch:auto/qos/classify
+    example: true
+    exclude_test: true
+  - yang_name: Cisco-IOS-XE-switch:auto/qos/classify/police
+    example: true
+    exclude_test: true
+  - yang_name: Cisco-IOS-XE-switch:auto/qos/trust
+    example: true
+    exclude_test: true
+  - yang_name: Cisco-IOS-XE-switch:auto/qos/trust/cos
+    example: true
+    exclude_test: true
+  - yang_name: Cisco-IOS-XE-switch:auto/qos/trust/dscp
+    example: true
+    exclude_test: true
+  - yang_name: Cisco-IOS-XE-switch:auto/qos/video/cts
+    example: true
+    exclude_test: true
+  - yang_name: Cisco-IOS-XE-switch:auto/qos/video/ip-camera
+    example: true
+    exclude_test: true
+  - yang_name: Cisco-IOS-XE-switch:auto/qos/video/media-player
+    example: true
+    exclude_test: true
+  - yang_name: Cisco-IOS-XE-switch:auto/qos/voip
+    example: true
+    exclude_test: true
+  - yang_name: Cisco-IOS-XE-switch:auto/qos/voip/cisco-phone
+    example: true
+    exclude_test: true
+  - yang_name: Cisco-IOS-XE-switch:auto/qos/voip/cisco-softphone
+    example: true
+    exclude_test: true
+  - yang_name: Cisco-IOS-XE-switch:auto/qos/voip/trust
+    example: true
+    exclude_test: true
+  - yang_name: trust/device
+    example: cisco-phone
+    exclude_test: true
+  - yang_name: ip/helper-address
+    tf_name: helper_addresses
+    type: List
+    attributes:
+      - yang_name: address
+        example: 10.10.10.10
+        id: true
+      - yang_name: helper-choice/global/global
+        xpath: global
+        tf_name: global
+        example: false
+      - yang_name: helper-choice/vrf/vrf
+        xpath: vrf
+        tf_name: vrf
+        example: VRF1
+  - yang_name: source/template/template-name
+    tf_name: source_template
+    type: List
+    exclude_test: true
+    attributes:
+      - yang_name: template-name
+        example: TEMP1
+        id: true
+      - yang_name: merge
+        example: false
+  - yang_name: bfd/Cisco-IOS-XE-bfd:template
+    example: bfd_template1
+    test_tags: [IOSXE179]
+  - yang_name: bfd/Cisco-IOS-XE-bfd:enable
+    example: false
+    test_tags: [IOSXE179]
+  - yang_name: bfd/Cisco-IOS-XE-bfd:local-address
+    example: 1.2.3.4
+    test_tags: [IOSXE179]
+  - yang_name: bfd/Cisco-IOS-XE-bfd:interval-interface/msecs
+    tf_name: bfd_interval
+    optional: true
+    example: 50
+    delete_parent: true
+    exclude_test: true
+    test_tags: [IOSXE179]
+  - yang_name: bfd/Cisco-IOS-XE-bfd:interval-interface/min_rx
+    tf_name: bfd_interval_min_rx
+    optional: true
+    example: 50
+    delete_parent: true
+    exclude_test: true
+    test_tags: [IOSXE179]
+  - yang_name: bfd/Cisco-IOS-XE-bfd:interval-interface/multiplier
+    tf_name: bfd_interval_multiplier
+    optional: true
+    example: 3
+    delete_parent: true
+    exclude_test: true
+    test_tags: [IOSXE179]
+  - yang_name: bfd/Cisco-IOS-XE-bfd:echo
+    example: true
+    exclude_test: true
+    test_tags: [IOSXE179]
+  - yang_name: ipv6/enable
+    example: true
+  - yang_name: ipv6/mtu
+    example: 1300
+  - yang_name: ipv6/nd/Cisco-IOS-XE-nd:ra/suppress/all
+    example: true
+  - yang_name: ipv6/address/autoconfig/default
+    example: true
+    exclude_test: true
+  - yang_name: ipv6/address/dhcp
+    example: true
+  - yang_name: ipv6/address/link-local-address
+    tf_name: ipv6_link_local_addresses
+    type: List
+    attributes:
+      - yang_name: address
+        id: true
+        example: fe80::9656:d028:8652:66b6
+      - yang_name: link-local
+        example: true
+  - yang_name: ipv6/address/prefix-list
+    tf_name: ipv6_addresses
+    type: List
+    attributes:
+      - yang_name: prefix
+        id: true
+        example: 2001:DB8::/32
+      - yang_name: eui-64
+        example: true
+  - yang_name: arp/timeout
+    example: 300
+  - yang_name: Cisco-IOS-XE-spanning-tree:spanning-tree/link-type
+    example: point-to-point
+  - yang_name: Cisco-IOS-XE-spanning-tree:spanning-tree/portfast/trunk
+    example: true
+    exclude_test: true
+  - yang_name: ip/arp/inspection/trust
+    example: true
+    test_tags: [C9000V]
+  - yang_name: ip/arp/inspection/limit/rate
+    example: 1000
+    test_tags: [C9000V]
+  - yang_name: ip/dhcp/Cisco-IOS-XE-dhcp:snooping/trust
+    example: true
+    test_tags: [C9000V]
+  - yang_name: Cisco-IOS-XE-ethernet:speed/speed-choice/value-100/value-100
+    xpath: Cisco-IOS-XE-ethernet:speed/value-100
+    tf_name: speed_100
+    example: true
+    exclude_test: true
+  - yang_name: Cisco-IOS-XE-ethernet:speed/speed-choice/value-1000/value-1000
+    xpath: Cisco-IOS-XE-ethernet:speed/value-1000
+    tf_name: speed_1000
+    example: true
+    exclude_test: true
+  - yang_name: Cisco-IOS-XE-ethernet:speed/speed-choice/value-2500/value-2500
+    xpath: Cisco-IOS-XE-ethernet:speed/value-2500
+    tf_name: speed_2500
+    example: true
+    exclude_test: true
+  - yang_name: Cisco-IOS-XE-ethernet:speed/speed-choice/value-5000/value-5000
+    xpath: Cisco-IOS-XE-ethernet:speed/value-5000
+    tf_name: speed_5000
+    example: true
+    exclude_test: true
+  - yang_name: Cisco-IOS-XE-ethernet:speed/speed-choice/value-10000/value-10000
+    xpath: Cisco-IOS-XE-ethernet:speed/value-10000
+    tf_name: speed_10000
+    example: true
+    exclude_test: true
+  - yang_name: Cisco-IOS-XE-ethernet:speed/speed-choice/value-25000/value-25000
+    xpath: Cisco-IOS-XE-ethernet:speed/value-25000
+    tf_name: speed_25000
+    example: true
+    exclude_test: true
+  - yang_name: Cisco-IOS-XE-ethernet:speed/speed-choice/value-40000/value-40000
+    xpath: Cisco-IOS-XE-ethernet:speed/value-40000
+    tf_name: speed_40000
+    example: true
+    exclude_test: true
+  - yang_name: Cisco-IOS-XE-ethernet:speed/speed-choice/value-100000/value-100000
+    xpath: Cisco-IOS-XE-ethernet:speed/value-100000
+    tf_name: speed_100000
+    example: true
+    exclude_test: true
+  - yang_name: Cisco-IOS-XE-ethernet:negotiation/auto
+    example: false
+  - yang_name: Cisco-IOS-XE-ethernet:speed/speed-choice/nonegotiate/nonegotiate
+    xpath: Cisco-IOS-XE-ethernet:speed/nonegotiate
+    tf_name: speed_nonegotiate
+    example: true
+    exclude_test: true
+  - yang_name: Cisco-IOS-XE-sanet:authentication/host-mode
+    example: multi-auth
+    exclude_test: true
+  - yang_name: Cisco-IOS-XE-sanet:authentication/order-config/method/dot1x-config/dot1x-config
+    xpath: Cisco-IOS-XE-sanet:authentication/order-config/dot1x-config
+    tf_name: authentication_order_dot1x
+    example: true
+    exclude_test: true
+  - yang_name: Cisco-IOS-XE-sanet:authentication/order-config/method/dot1x-config/dot1x-config/mab
+    xpath: Cisco-IOS-XE-sanet:authentication/order-config/dot1x-config/mab
+    tf_name: authentication_order_dot1x_mab
+    example: true
+    exclude_test: true
+  - yang_name: Cisco-IOS-XE-sanet:authentication/order-config/method/dot1x-config/dot1x-config/webauth
+    xpath: Cisco-IOS-XE-sanet:authentication/order-config/dot1x-config/webauth
+    tf_name: authentication_order_dot1x_webauth
+    example: true
+    exclude_test: true
+  - yang_name: Cisco-IOS-XE-sanet:authentication/order-config/method/mab-config/mab-config
+    xpath: Cisco-IOS-XE-sanet:authentication/order-config/mab-config
+    tf_name: authentication_order_mab
+    example: true
+    exclude_test: true
+  - yang_name: Cisco-IOS-XE-sanet:authentication/order-config/method/mab-config/mab-config/dot1x
+    xpath: Cisco-IOS-XE-sanet:authentication/order-config/mab-config/dot1x
+    tf_name: authentication_order_mab_dot1x
+    example: true
+    exclude_test: true
+  - yang_name: Cisco-IOS-XE-sanet:authentication/order-config/method/mab-config/mab-config/webauth
+    xpath: Cisco-IOS-XE-sanet:authentication/order-config/mab-config/webauth
+    tf_name: authentication_order_mab_webauth
+    example: true
+    exclude_test: true
+  - yang_name: Cisco-IOS-XE-sanet:authentication/order-config/method/webauth-config/webauth-config
+    xpath: Cisco-IOS-XE-sanet:authentication/order-config/webauth-config
+    tf_name: authentication_order_webauth
+    example: true
+    exclude_test: true
+  - yang_name: Cisco-IOS-XE-sanet:authentication/priority-config/method/dot1x-config/dot1x-config
+    xpath: Cisco-IOS-XE-sanet:authentication/priority-config/dot1x-config
+    tf_name: authentication_priority_dot1x
+    example: true
+    exclude_test: true
+  - yang_name: Cisco-IOS-XE-sanet:authentication/priority-config/method/dot1x-config/dot1x-config/mab
+    xpath: Cisco-IOS-XE-sanet:authentication/priority-config/dot1x-config/mab
+    tf_name: authentication_priority_dot1x_mab
+    example: true
+    exclude_test: true
+  - yang_name: Cisco-IOS-XE-sanet:authentication/priority-config/method/dot1x-config/dot1x-config/webauth
+    xpath: Cisco-IOS-XE-sanet:authentication/priority-config/dot1x-config/webauth
+    tf_name: authentication_priority_dot1x_webauth
+    example: true
+    exclude_test: true
+  - yang_name: Cisco-IOS-XE-sanet:authentication/priority-config/method/mab-config/mab-config
+    xpath: Cisco-IOS-XE-sanet:authentication/priority-config/mab-config
+    tf_name: authentication_priority_mab
+    example: true
+    exclude_test: true
+  - yang_name: Cisco-IOS-XE-sanet:authentication/priority-config/method/mab-config/mab-config/dot1x
+    xpath: Cisco-IOS-XE-sanet:authentication/priority-config/mab-config/dot1x
+    tf_name: authentication_priority_mab_dot1x
+    example: true
+    exclude_test: true
+  - yang_name: Cisco-IOS-XE-sanet:authentication/priority-config/method/mab-config/mab-config/webauth
+    xpath: Cisco-IOS-XE-sanet:authentication/priority-config/mab-config/webauth
+    tf_name: authentication_priority_mab_webauth
+    example: true
+    exclude_test: true
+  - yang_name: Cisco-IOS-XE-sanet:authentication/priority-config/method/webauth-config/webauth-config
+    xpath: Cisco-IOS-XE-sanet:authentication/priority-config/webauth-config
+    tf_name: authentication_priority_webauth
+    example: true
+    exclude_test: true
+  - yang_name: Cisco-IOS-XE-sanet:authentication/port-control
+    example: auto
+    exclude_test: true
+  - yang_name: Cisco-IOS-XE-sanet:authentication/periodic
+    example: true
+    exclude_test: true
+  - yang_name: Cisco-IOS-XE-sanet:authentication/timer/reauthenticate/timer-val/value-config/value-config
+    xpath: Cisco-IOS-XE-sanet:authentication/timer/reauthenticate/value-config
+    tf_name: authentication_timer_reauthenticate
+    example: 10
+    exclude_test: true
+  - yang_name: Cisco-IOS-XE-sanet:authentication/timer/reauthenticate/timer-val/server-config/server-config
+    xpath: Cisco-IOS-XE-sanet:authentication/timer/reauthenticate/server-config
+    tf_name: authentication_timer_reauthenticate_server
+    example: true
+    exclude_test: true
+  - yang_name: Cisco-IOS-XE-sanet:mab
+    example: true
+    exclude_test: true
+  - yang_name: Cisco-IOS-XE-sanet:mab/eap
+    example: true
+    exclude_test: true
+  - yang_name: Cisco-IOS-XE-dot1x:dot1x/pae
+    example: authenticator
+    exclude_test: true
+  - yang_name: Cisco-IOS-XE-dot1x:dot1x/timeout/auth-period
+    example: 10
+    exclude_test: true
+  - yang_name: Cisco-IOS-XE-dot1x:dot1x/timeout/held-period
+    example: 10
+    exclude_test: true
+  - yang_name: Cisco-IOS-XE-dot1x:dot1x/timeout/quiet-period
+    example: 10
+    exclude_test: true
+  - yang_name: Cisco-IOS-XE-dot1x:dot1x/timeout/ratelimit-period
+    example: 10
+    exclude_test: true
+  - yang_name: Cisco-IOS-XE-dot1x:dot1x/timeout/server-timeout
+    example: 10
+    exclude_test: true
+  - yang_name: Cisco-IOS-XE-dot1x:dot1x/timeout/start-period
+    example: 10
+    exclude_test: true
+  - yang_name: Cisco-IOS-XE-dot1x:dot1x/timeout/supp-timeout
+    example: 10
+    exclude_test: true
+  - yang_name: Cisco-IOS-XE-dot1x:dot1x/timeout/tx-period
+    example: 10
+    exclude_test: true
+  - yang_name: Cisco-IOS-XE-dot1x:dot1x/max-req
+    example: 3
+    exclude_test: true
+  - yang_name: Cisco-IOS-XE-dot1x:dot1x/max-reauth-req
+    example: 3
+    exclude_test: true
+  - yang_name: Cisco-IOS-XE-policy:service-policy/input
+    example: POLICY1
+  - yang_name: Cisco-IOS-XE-policy:service-policy/output
+    example: POLICY1
+  - yang_name: ip/Cisco-IOS-XE-flow:flow/monitor-new
+    tf_name: ip_flow_monitors
+    type: List
+    attributes:
+      - yang_name: name
+        id: true
+        example: MON1
+      - yang_name: direction
+        id: true
+        example: input
+  - yang_name: load-interval
+    example: 30
+  - yang_name: Cisco-IOS-XE-snmp:snmp/trap/link-status
+    example: true
+  - yang_name: logging/event/link-status-enable
+    example: true
+
+test_prerequisites:
+  - path: Cisco-IOS-XE-native:native/vrf/definition=VRF1
+    no_delete: true
+    attributes:
+      - name: name
+        value: VRF1
+      - name: address-family/ipv4
+        value: ""
+  - path: Cisco-IOS-XE-native:native/policy/Cisco-IOS-XE-policy:policy-map=POLICY1
+    attributes:
+      - name: name
+        value: POLICY1
+  - path: Cisco-IOS-XE-native:native/flow/Cisco-IOS-XE-flow:record=REC1
+    attributes:
+      - name: name
+        value: REC1
+      - name: match/ipv4/source/address
+        value: ""
+      - name: collect/interface/output
+        value: ""
+  - path: Cisco-IOS-XE-native:native/flow/Cisco-IOS-XE-flow:monitor=MON1
+    attributes:
+      - name: name
+        value: MON1
+      - name: record/type
+        value: REC1
+    dependencies: [2]

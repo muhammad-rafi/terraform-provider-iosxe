@@ -1,0 +1,108 @@
+---
+name: BGP Address Family IPv4 VRF
+path: Cisco-IOS-XE-native:native/router/Cisco-IOS-XE-bgp:bgp=%v/address-family/with-vrf/ipv4=%s
+skip_minimum_test: true
+doc_category: BGP
+attributes:
+  - yang_name: id
+    tf_name: asn
+    example: 65000
+  - yang_name: af-name
+    example: unicast
+  - yang_name: vrf
+    tf_name: vrfs
+    type: List
+    attributes:
+      - yang_name: name
+        example: VRF1
+        id: true
+      - yang_name: ipv4-unicast/advertise/l2vpn/evpn
+        tf_name: ipv4_unicast_advertise_l2vpn_evpn
+        example: true
+      - yang_name: ipv4-unicast/redistribute-vrf/connected
+        tf_name: ipv4_unicast_redistribute_connected
+        example: true
+      - yang_name: ipv4-unicast/bgp/router-id/id-choice/interface/interface/interface-choice/Loopback/Loopback
+        xpath: ipv4-unicast/bgp/router-id/interface/Loopback
+        tf_name: ipv4_unicast_router_id_loopback
+        example: 101
+      - yang_name: ipv4-unicast/aggregate-address
+        tf_name: ipv4_unicast_aggregate_addresses
+        type: List
+        attributes:
+          - yang_name: ipv4-address
+            id: true
+            example: 50.0.0.0
+          - yang_name: ipv4-mask
+            id: true
+            example: 255.255.0.0
+      - yang_name: ipv4-unicast/redistribute-vrf/static
+        tf_name: ipv4_unicast_redistribute_static
+        example: true
+      - yang_name: ipv4-unicast/network/with-mask
+        tf_name: ipv4_unicast_networks_mask
+        type: List
+        attributes:
+          - yang_name: number
+            tf_name: network
+            id: true
+            example: 12.0.0.0
+          - yang_name: mask
+            id: true
+            example: 255.255.0.0
+          - yang_name: route-map
+            example: RM1
+          - yang_name: network-option/backdoor/backdoor
+            xpath: backdoor
+            tf_name: backdoor
+            example: true
+          - yang_name: network-option/evpn/evpn
+            xpath: evpn
+            tf_name: evpn
+            example: true
+            exclude_test: true
+      - yang_name: ipv4-unicast/network/no-mask
+        tf_name: ipv4_unicast_networks
+        type: List
+        attributes:
+          - yang_name: number
+            tf_name: network
+            id: true
+            example: 13.0.0.0
+          - yang_name: route-map
+            example: RM1
+          - yang_name: network-option/backdoor/backdoor
+            xpath: backdoor
+            tf_name: backdoor
+            example: true
+          - yang_name: network-option/evpn/evpn
+            xpath: evpn
+            tf_name: evpn
+            example: true
+            exclude_test: true
+test_prerequisites:
+  - path: Cisco-IOS-XE-native:native/vrf/definition=VRF1
+    no_delete: true
+    attributes:
+      - name: name
+        value: VRF1
+      - name: rd
+        value: 1:1
+      - name: address-family/ipv4
+        value: ""
+  - path: Cisco-IOS-XE-native:native/router/Cisco-IOS-XE-bgp:bgp=65000
+    attributes:
+      - name: id
+        value: 65000
+    dependencies: [0]
+  - path: Cisco-IOS-XE-native:native/interface/Loopback=101
+    attributes:
+      - name: name
+        value: 101
+      - name: ip/address/primary/address
+        value: 22.22.22.22
+      - name: ip/address/primary/mask
+        value: 255.255.255.255
+      - name: vrf/forwarding
+        value: VRF1
+    dependencies: [0]

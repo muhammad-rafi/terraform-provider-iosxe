@@ -1,0 +1,73 @@
+---
+name: Service Template
+path: Cisco-IOS-XE-native:native/Cisco-IOS-XE-switch:service-template=%v
+doc_category: System
+no_delete_attributes: true
+attributes:
+  - yang_name: word
+    tf_name: name
+    example: MY_TEMPLATE
+  - yang_name: access-group-config
+    type: List
+    tf_name: access_groups
+    attributes:
+      - yang_name: name
+        id: true
+        example: ag1
+  - yang_name: inactivity-timer/value
+    tf_name: inactivity_timer
+    example: 25
+  - yang_name: inactivity-timer/probe
+    example: false
+  - yang_name: vlan
+    example: 27
+  - yang_name: voice/vlan
+    example: false
+  - yang_name: linksec/policy
+    example: must-secure
+  - yang_name: sgt
+    example: 57
+  - yang_name: absolute-timer
+    example: 45
+  - yang_name: description
+    example: service_template_desc
+  - yang_name: interface-template
+    tf_name: interface_templates
+    type: List
+    attributes:
+      - yang_name: name
+        id: true
+        example: template1
+  - yang_name: tunnel/type/capwap/name
+    tf_name: tunnel_capwap_name
+    example: TUN1
+  - yang_name: vnid
+    example: 12345
+  - yang_name: redirect/append/client-mac
+    example: 00:01:00:01:00:01
+  - yang_name: redirect/append/switch-mac
+    example: 00:01:00:01:00:02
+  - yang_name: redirect/url/url_name
+    tf_name: redirect_url
+    example: valid_url
+  - yang_name: redirect/url/match/acl_name
+    tf_name: redirect_url_match_acl
+    example: acl_name
+  - yang_name: redirect/url/match/action
+    example: redirect-on-no-match
+  - yang_name: dns-acl/preauth
+    example: dns_acl_name
+  - yang_name: service-policy/qos/input
+    example: input_qos
+  - yang_name: service-policy/qos/output
+    example: output_qos
+  - yang_name: tag-config
+    tf_name: tags
+    type: List
+    attributes:
+      - yang_name: name
+        id: true
+        example: tag_name
+  - yang_name: mdns-service-policy
+    example: MDNS_SERVICE_POLICY_1
+    exclude_test: true

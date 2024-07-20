@@ -1,0 +1,170 @@
+---
+name: BGP IPv4 Unicast VRF Neighbor
+path: Cisco-IOS-XE-native:native/router/Cisco-IOS-XE-bgp:bgp=%v/address-family/with-vrf/ipv4=unicast/vrf=%s/ipv4-unicast/neighbor=%s
+skip_minimum_test: true
+doc_category: BGP
+attributes:
+  - yang_name: id
+    yang_scope: bgp
+    tf_name: asn
+    example: 65000
+  - yang_name: name
+    yang_scope: vrf
+    tf_name: vrf
+    example: VRF1
+  - yang_name: id
+    yang_scope: neighbor
+    tf_name: ip
+    example: 3.3.3.3
+  - yang_name: remote-as
+    example: 65000
+    no_delete: true
+  - yang_name: description
+    example: BGP Neighbor Description
+  - yang_name: shutdown
+    example: false
+  - yang_name: cluster-id
+    example: 2.2.2.2
+    test_tags: [IOSXE176, IOSXE179]
+  - yang_name: log-neighbor-changes/disable
+    example: true
+  - yang_name: password/enctype
+    tf_name: password_type
+    delete_parent: true
+    example: 1
+  - yang_name: password/text
+    tf_name: password
+    delete_parent: true
+    example: LINE
+  - yang_name: timers/keepalive-interval
+    tf_name: timers_keepalive_interval
+    delete_parent: true
+    example: 30
+  - yang_name: timers/holdtime
+    tf_name: timers_holdtime
+    delete_parent: true
+    example: 40
+  - yang_name: timers/minimum-neighbor-hold
+    tf_name: timers_minimum_neighbor_hold
+    delete_parent: true
+    example: 30
+  - yang_name: version
+    example: 4
+  - yang_name: fall-over/default/route-map
+    tf_name: fall_over_default_route_map
+    example: RMAP
+  - yang_name: fall-over/bfd
+    example: true
+  - yang_name: fall-over/bfd/hop-choice/multi-hop/multi-hop
+    xpath: fall-over/bfd/multi-hop
+    tf_name: fall_over_bfd_multi_hop
+    example: true
+    exclude_test: true
+  - yang_name: fall-over/bfd/hop-choice/single-hop/single-hop
+    xpath: fall-over/bfd/single-hop
+    tf_name: fall_over_bfd_single_hop
+    example: true
+  - yang_name: fall-over/bfd/check-control-plane-failure
+    tf_name: fall_over_bfd_check_control_plane_failure
+    example: true
+  - yang_name: fall-over/bfd/strict-mode
+    example: true
+  - yang_name: fall-over/maximum-metric/route-map
+    example: ROUTEMAP
+  - yang_name: disable-connected-check
+    example: false
+    exclude_test: true
+  - yang_name: ttl-security/hops
+    tf_name: ttl_security_hops
+    example: 2
+    exclude_test: true
+  - yang_name: local-as/as-no
+    tf_name: local_as
+    example: 1
+    exclude_test: true
+  - yang_name: local-as/no-prepend
+    tf_name: local_as_no_prepend
+    example: true
+    exclude_test: true
+  - yang_name: local-as/replace-as
+    tf_name: local_as_replace_as
+    example: true
+    exclude_test: true
+  - yang_name: local-as/dual-as
+    tf_name: local_as_dual_as
+    example: true
+    exclude_test: true
+  - yang_name: update-source/interface/interface-choice/Loopback/Loopback
+    xpath: update-source/interface/Loopback
+    tf_name: update_source_loopback
+    type: Int64
+    example: 100
+  - yang_name: activate
+    default_value: true
+    example: true
+    no_delete: true
+  - yang_name: send-community/send-community-where
+    tf_name: send_community
+    example: both
+  - yang_name: route-reflector-client
+    example: false
+  - yang_name: soft-reconfiguration
+    example: inbound
+  - yang_name: default-originate
+    example: true
+  - yang_name: default-originate/route-map
+    example: RM1
+  - yang_name: route-map
+    tf_name: route_maps
+    type: List
+    attributes:
+      - yang_name: inout
+        tf_name: in_out
+        id: true
+        example: in
+      - yang_name: route-map-name
+        example: RM1
+  - yang_name: ebgp-multihop
+    example: true
+    exclude_test: true
+  - yang_name: ebgp-multihop/max-hop
+    example: 10
+    exclude_test: true
+  - yang_name: ha-mode/graceful-restart
+    example: true
+  - yang_name: next-hop-self
+    example: true
+  - yang_name: next-hop-self/all
+    example: true
+  - yang_name: advertisement-interval
+    example: 300
+test_prerequisites:
+  - path: Cisco-IOS-XE-native:native/vrf/definition=VRF1
+    no_delete: true
+    attributes:
+      - name: name
+        value: VRF1
+      - name: rd
+        value: 1:1
+      - name: address-family/ipv4
+        value: ""
+  - path: Cisco-IOS-XE-native:native/router/Cisco-IOS-XE-bgp:bgp=65000
+    attributes:
+      - name: id
+        value: 65000
+  - path: Cisco-IOS-XE-native:native/router/Cisco-IOS-XE-bgp:bgp=65000/address-family/with-vrf/ipv4=unicast
+    attributes:
+      - name: af-name
+        value: unicast
+    lists:
+      - name: vrf
+        key: name
+        items:
+          - attributes:
+              - name: name
+                value: VRF1
+    dependencies: [0, 1]
+  - path: Cisco-IOS-XE-native:native/interface/Loopback=100
+    attributes:
+      - name: name
+        value: 100
